@@ -36,7 +36,7 @@ void FImprime(Fila *f){
 
 	aux = f -> first -> prox;
 	while(aux != NULL){
-		cout << aux -> data.val << " ";
+		cout << aux -> data.val << "\t";
 		aux = aux -> prox;
 	}
 }
@@ -47,4 +47,60 @@ bool queue_is_empty(Fila *f) {
     } else {
         return false;
     }
+}
+
+int define_queue_size() {
+    srand(time(NULL));
+
+    int size = rand() % 15 + 1;
+    return size;
+}
+
+void fill_queue(Fila *queue, int size) {
+    Item aux;
+    srand(time(NULL));
+
+    for (int i = 0; i < size; i++) {
+        aux.val = rand () % 100 + 1;
+        Enfileira(queue, aux);
+    }
+}
+
+void break_apart_first_half(Fila *queue_1, Fila *first_half_queue_1, int size) {
+    Block *aux;
+    Item aux_item;
+    aux = queue_1 -> first -> prox;
+    
+    for (int i = 0; i < (size / 2); i++) {
+        aux_item.val = aux -> data.val;
+        Enfileira(first_half_queue_1, aux_item);
+        cout << endl << "TESTING PRINTING UNTIL HALF: " << aux -> data.val;
+        aux = aux -> prox;
+    }
+
+    cout << endl << endl << "PRINTING QUEUE FILLED UNTIL HALF: " << endl << endl;
+    FImprime(first_half_queue_1);
+}
+
+void problem_3_a() {
+    Fila queue_1, queue_2;
+    
+    FFVazia(&queue_1);
+    FFVazia(&queue_2);
+
+    int size = define_queue_size();
+
+    fill_queue(&queue_1, size);
+    sleep(1);
+    fill_queue(&queue_2, size);
+    FImprime(&queue_1);
+    cout << endl;
+    FImprime(&queue_2);
+
+    Fila first_half_queue_1;
+    FFVazia(&first_half_queue_1);
+    
+    break_apart_first_half(&queue_1, &first_half_queue_1, size);
+    //Fila second_half_queue_2;
+    //FFVazia(&half_queue_2);
 }

@@ -29,5 +29,10 @@ void Desenfileira(Fila *f, Item *d);
 void FImprime(Fila *f);
 bool queue_is_empty(Fila *f);
 
+void problem_3_a();
+int define_queue_size();
+void fill_queue(Fila *queue, int size);
+void break_apart_first_half(Fila *queue_1, Fila *first_half_queue_1, int size);
+
 
 #endif
