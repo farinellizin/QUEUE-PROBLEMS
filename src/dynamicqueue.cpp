@@ -52,7 +52,7 @@ bool queue_is_empty(Fila *f) {
 int define_queue_size() {
     srand(time(NULL));
 
-    int size = rand() % 15 + 1;
+    int size = rand() % 15 + 2;
     return size;
 }
 
@@ -67,23 +67,17 @@ void fill_queue(Fila *queue, int size) {
 }
 
 void break_apart_in_half(Fila *queue, Fila *first_half_queue, int size) {
-    //Block *aux;
     Item aux_item;
-    //aux = queue_1 -> first -> prox;
     
     for (int i = 0; i < (size / 2); i++) {
         Desenfileira(queue, &aux_item);
-        //aux_item.val = aux -> data.val;
         Enfileira(first_half_queue, aux_item);
-
-        //cout << endl << "TESTING PRINTING UNTIL HALF: " << aux -> data.val;
-        //aux = aux -> prox;
     }
 
-    cout << endl << endl << "PRINTING QUEUE FILLED UNTIL HALF: " << endl << endl;
-    FImprime(first_half_queue); // second_half_queue_2
-    cout << "PRINTING WHAT HAS LEFT ON THE INICIAL QUEUE: " << endl << endl;
-    FImprime(queue); // queue_2
+    cout << endl << endl << "\t\t    - Here is the first half of the list: " << endl << endl << "\t";
+    FImprime(first_half_queue);
+    cout << endl << endl << "\t\t    - Here is the second half of the list: " << endl << endl << "\t";
+    FImprime(queue);
 }
 
 void pull_together_two_queues(Fila *queue_first_half, Fila *queue_second_half, Fila *final_queue) {
@@ -98,11 +92,13 @@ void pull_together_two_queues(Fila *queue_first_half, Fila *queue_second_half, F
         Enfileira(final_queue, aux);
     }
 
-    cout << endl << "PRINTING FINAL LIST: " << endl << endl;
+    cout << endl << endl << "\t";
     FImprime(final_queue);
 }
 
 void problem_3_a() {
+    cout << endl << endl << "-------------------------------------------------------------------------------------";
+    cout << endl << endl << "\t\t\t\t    Loading..." << endl << endl;
     Fila queue_1, queue_2;
     
     FFVazia(&queue_1);
@@ -113,26 +109,31 @@ void problem_3_a() {
     fill_queue(&queue_1, size);
     sleep(1);
     fill_queue(&queue_2, size);
+   
+    cout << endl << "\t\t\t  - This is the first Queue: " << endl << endl << "\t";
     FImprime(&queue_1);
-    cout << endl;
-    FImprime(&queue_2);
 
     Fila first_half_queue_1;
     FFVazia(&first_half_queue_1);
     break_apart_in_half(&queue_1, &first_half_queue_1, size);
-    // PRIMEIRA METADE FILA 1 = FIRST_HALF_QUEUE_1
-    // SEGUNDA METADE FILA 1 = QUEUE_1
     
-    Fila second_half_queue_2;
-    FFVazia(&second_half_queue_2);
-    break_apart_in_half(&queue_2, &second_half_queue_2, size);
-    // PRIMEIRA METADE FILA 2 = SECOND_HALF_QUEUE_2
-    // SEGUNDA METADE FILA 1 = QUEUE_2
+    cout << endl << endl << endl << "\t\t\t  - This is the second Queue: " << endl << endl << "\t";
+    FImprime(&queue_2);
+
+    Fila first_half_queue_2;
+    FFVazia(&first_half_queue_2);
+    break_apart_in_half(&queue_2, &first_half_queue_2, size);
 
     Fila final_queue_1;
     FFVazia(&final_queue_1);
+    cout << endl << endl << endl << "\t\t\t   This is the first half of the" << endl << "\t\t";
+    cout << "first Queue with the last half of the second Queue: " << endl << "\t";
     pull_together_two_queues(&first_half_queue_1, &queue_2, &final_queue_1);
 
-
-
+    cout << endl << endl << endl << "\t\t\t   This is the first half of the" << endl << "\t\t";
+    cout << "second Queue with the last half of the first Queue: " << endl << "\t";
+    Fila final_queue_2;
+    FFVazia(&final_queue_2);
+    pull_together_two_queues(&first_half_queue_2, &queue_1, &final_queue_2);
+    cout << endl << endl;
 }
