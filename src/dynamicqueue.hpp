@@ -32,7 +32,8 @@ bool queue_is_empty(Fila *f);
 void problem_3_a();
 int define_queue_size();
 void fill_queue(Fila *queue, int size);
-void break_apart_first_half(Fila *queue_1, Fila *first_half_queue_1, int size);
+void break_apart_in_half(Fila *queue, Fila *first_half_queue, int size);
+void pull_together_two_queues(Fila *queue_first_half, Fila *queue_second_half, Fila *final_queue);
 
 
 #endif

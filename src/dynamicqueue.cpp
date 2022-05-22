@@ -66,20 +66,40 @@ void fill_queue(Fila *queue, int size) {
     }
 }
 
-void break_apart_first_half(Fila *queue_1, Fila *first_half_queue_1, int size) {
-    Block *aux;
+void break_apart_in_half(Fila *queue, Fila *first_half_queue, int size) {
+    //Block *aux;
     Item aux_item;
-    aux = queue_1 -> first -> prox;
+    //aux = queue_1 -> first -> prox;
     
     for (int i = 0; i < (size / 2); i++) {
-        aux_item.val = aux -> data.val;
-        Enfileira(first_half_queue_1, aux_item);
-        cout << endl << "TESTING PRINTING UNTIL HALF: " << aux -> data.val;
-        aux = aux -> prox;
+        Desenfileira(queue, &aux_item);
+        //aux_item.val = aux -> data.val;
+        Enfileira(first_half_queue, aux_item);
+
+        //cout << endl << "TESTING PRINTING UNTIL HALF: " << aux -> data.val;
+        //aux = aux -> prox;
     }
 
     cout << endl << endl << "PRINTING QUEUE FILLED UNTIL HALF: " << endl << endl;
-    FImprime(first_half_queue_1);
+    FImprime(first_half_queue); // second_half_queue_2
+    cout << "PRINTING WHAT HAS LEFT ON THE INICIAL QUEUE: " << endl << endl;
+    FImprime(queue); // queue_2
+}
+
+void pull_together_two_queues(Fila *queue_first_half, Fila *queue_second_half, Fila *final_queue) {
+    Item aux;
+    while (!queue_is_empty(queue_first_half)) {
+        Desenfileira(queue_first_half, &aux);
+        Enfileira(final_queue, aux);
+    }
+    
+    while(!queue_is_empty(queue_second_half)) {
+        Desenfileira(queue_second_half, &aux);
+        Enfileira(final_queue, aux);
+    }
+
+    cout << endl << "PRINTING FINAL LIST: " << endl << endl;
+    FImprime(final_queue);
 }
 
 void problem_3_a() {
@@ -99,8 +119,20 @@ void problem_3_a() {
 
     Fila first_half_queue_1;
     FFVazia(&first_half_queue_1);
+    break_apart_in_half(&queue_1, &first_half_queue_1, size);
+    // PRIMEIRA METADE FILA 1 = FIRST_HALF_QUEUE_1
+    // SEGUNDA METADE FILA 1 = QUEUE_1
     
-    break_apart_first_half(&queue_1, &first_half_queue_1, size);
-    //Fila second_half_queue_2;
-    //FFVazia(&half_queue_2);
+    Fila second_half_queue_2;
+    FFVazia(&second_half_queue_2);
+    break_apart_in_half(&queue_2, &second_half_queue_2, size);
+    // PRIMEIRA METADE FILA 2 = SECOND_HALF_QUEUE_2
+    // SEGUNDA METADE FILA 1 = QUEUE_2
+
+    Fila final_queue_1;
+    FFVazia(&final_queue_1);
+    pull_together_two_queues(&first_half_queue_1, &queue_2, &final_queue_1);
+
+
+
 }
