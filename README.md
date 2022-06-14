@@ -296,3 +296,8 @@ O repositório possui um arquivo <i>Makefile</i> que realiza todo o procedimento
   </tr>
 </table>
     
+## Alunos
+- Lucas Farinelli
+- Felipe Campos
+- Caio Dias
+- João Marcelo
