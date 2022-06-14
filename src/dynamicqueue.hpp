@@ -29,6 +29,11 @@ void Desenfileira(Fila *f, Item *d);
 void FImprime(Fila *f);
 bool queue_is_empty(Fila *f);
 
+void insertNewValue(Fila *f, Item d);
+void equation(Fila *f, Item d);
+
+void equation_c(Fila *Index, Fila *f, Item d); 
+
 void problem_3_a();
 int define_queue_size();
 void fill_queue(Fila *queue, int size);

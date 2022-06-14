@@ -7,6 +7,13 @@ void FFVazia(Fila *f){
 	f -> first -> prox = NULL;
 }
 
+void Swap(Block *a, Block *b){
+	Item aux;
+	aux = a -> data;
+	a -> data = b -> data;
+	b -> data = aux;
+}
+
 void Enfileira(Fila *f, Item d){
 	f -> last -> prox = (Block*) malloc (sizeof(Block));
 	f -> last = f -> last -> prox;
@@ -136,4 +143,108 @@ void problem_3_a() {
     FFVazia(&final_queue_2);
     pull_together_two_queues(&first_half_queue_2, &queue_1, &final_queue_2);
     cout << endl << endl;
+}
+
+void insertNewValue(Fila *f, Item d){
+	int aux, opt = -1;
+
+	while(opt != 0){
+		if(opt == 1){
+			cout << "Valor inserido com sucesso." << endl << endl;
+		}
+
+		cout << "Digite 1 se deseja adicionar um novo valor a fila." << endl;
+		cout << "Digite 0 se não deseja adicionar mais nenhum valor a fila." << endl << endl;
+
+		cout << "Opção: ";
+		cin >> opt;
+		cout << endl;
+
+		if(opt == 1){
+			cout << "Insira o valor que deseja adicionar a fila: ";
+			cin >> aux;
+
+			d.val = aux;
+			Enfileira(f, d);
+
+			cout << endl;
+		}
+
+		else if(opt == 0){
+			cout << "Saindo da função de inserção de novos valores a fila..." << endl << endl;
+		}
+
+		else{
+			cout << "Opção inválida." << endl << endl;
+		}
+
+		system("clear");
+	}
+}
+
+void equation(Fila *f, Item d){
+	Block *aux;
+	int sum = 0, cont = 0;
+	int average;
+
+	aux = f->first->prox;
+
+	while(aux != NULL){
+		sum += aux->data.val;
+		cont += 1;
+
+		aux = aux->prox;
+	}
+
+	average = sum/cont;
+
+	d.val = average;
+	Enfileira(f, d);
+
+	cout << endl << "O resultado da equação de média aritmética aplicada a essa fila, desconsiderando casas decimais, é igual a: " << average << endl << endl;
+}
+
+void descendingSort(Fila *Index){
+	Block *i, *j;
+
+	i = Index->first->prox;
+
+	while(i != NULL){
+		j = i->prox;
+
+		while(j != NULL){
+			if(j->data.val > i->data.val){
+				Swap(i, j);
+			}
+
+			j = j->prox;
+		}
+
+		i = i->prox;
+	}
+}
+
+void equation_c(Fila *Index, Fila *f, Item d){
+	Block *aux;
+	int sum = 0, cont = 0;
+	int average;
+
+	aux = f->first->prox;
+
+	while(aux != NULL){
+		sum += aux->data.val;
+		cont += 1;
+
+		aux = aux->prox;
+	}
+
+	average = sum/cont;
+
+	d.val = average;
+	Enfileira(f, d);
+	Enfileira(Index, d);
+
+	descendingSort(Index);
+
+	cout << endl << "O resultado da equação de média aritmética aplicada a essa fila, desconsiderando casas decimais, é igual a: " << average << endl << endl;
 }
